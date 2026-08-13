@@ -1,0 +1,3 @@
+dataset,best_recall_model_tuned,best_f1_model_tuned,best_pr_auc_model,nn_recall_default_0.5,nn_recall_tuned,lr_recall_tuned,lr_precision_tuned,nn_precision_tuned
+UCI enrolment,Logistic Regression,Logistic Regression,Logistic Regression,0.5915492957746479,0.6514084507042254,0.778169014084507,0.6616766467065869,0.6187290969899666
+OULAD day 30,Logistic Regression,Logistic Regression,Logistic Regression,0.30049261083743845,0.5221674876847291,0.5950738916256157,0.2970978848991638,0.22110972048393826

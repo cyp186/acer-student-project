@@ -1,0 +1,10 @@
+# Raw dataset ZIPs are downloaded separately and should not be committed.
+data/raw/*
+!data/raw/.gitkeep
+
+# Python and notebook artefacts
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
