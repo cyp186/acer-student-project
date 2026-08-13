@@ -11,18 +11,18 @@ UCI enrolment,Logistic Regression,nationality_26,-1.038199200630502,1.0381992006
 UCI enrolment,Logistic Regression,application_mode_39,1.033508702450245,1.033508702450245,associated with higher risk,logistic_coefficient
 UCI enrolment,Logistic Regression,nationality_109,1.0059483546133088,1.0059483546133088,associated with higher risk,logistic_coefficient
 UCI enrolment,Logistic Regression,course_9500,-0.9932657435704741,0.9932657435704741,associated with lower risk,logistic_coefficient
-UCI enrolment,Neural Network,course,0.12745499019921436,0.12745499019921436,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,tuition_fees_up_to_date,0.11889044738769025,0.11889044738769025,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,mother_s_occupation,0.07598431337659417,0.07598431337659417,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,application_mode,0.07506982539821375,0.07506982539821375,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,father_s_occupation,0.061085662193550966,0.061085662193550966,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,mother_s_qualification,0.05745265957255606,0.05745265957255606,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,father_s_qualification,0.05129461863230786,0.05129461863230786,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,scholarship_holder,0.03305632022123044,0.03305632022123044,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,previous_qualification,0.03215102613474807,0.03215102613474807,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,gender,0.01922212745776644,0.01922212745776644,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,marital_status,0.015278588887384578,0.015278588887384578,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,nationality,0.013862691086669043,0.013862691086669043,PR-AUC drop when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,tuition_fees_up_to_date,0.12630482626693967,0.12630482626693967,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,course,0.04239642135926741,0.04239642135926741,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,scholarship_holder,0.022142953697830633,0.022142953697830633,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,application_mode,0.01291747594034448,0.01291747594034448,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,mother_s_occupation,-0.012630035457049812,0.012630035457049812,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,debtor,0.012089031386359167,0.012089031386359167,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,previous_qualification,0.011336244317650512,0.011336244317650512,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,mother_s_qualification,-0.008393329131982444,0.008393329131982444,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,father_s_occupation,-0.0067253713761038225,0.0067253713761038225,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,admission_grade,0.005377637357461398,0.005377637357461398,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,age_at_enrollment,0.005136147490461804,0.005136147490461804,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,unemployment_rate,0.004820826009178325,0.004820826009178325,mean AP decrease when the feature is shuffled,permutation_importance
 OULAD day 30,Logistic Regression,code_module_GGG,-1.1237373865126559,1.1237373865126559,associated with lower risk,logistic_coefficient
 OULAD day 30,Logistic Regression,code_module_CCC,0.8911124201317713,0.8911124201317713,associated with higher risk,logistic_coefficient
 OULAD day 30,Logistic Regression,code_module_BBB,-0.5624936991533309,0.5624936991533309,associated with lower risk,logistic_coefficient
@@ -35,15 +35,15 @@ OULAD day 30,Logistic Regression,disability_Y,0.2590333583097299,0.2590333583097
 OULAD day 30,Logistic Regression,highest_education_Post Graduate Qualification,-0.2586715173513321,0.2586715173513321,associated with lower risk,logistic_coefficient
 OULAD day 30,Logistic Regression,disability_N,-0.23114059703404136,0.23114059703404136,associated with lower risk,logistic_coefficient
 OULAD day 30,Logistic Regression,highest_education_Lower Than A Level,0.21459728506811868,0.21459728506811868,associated with higher risk,logistic_coefficient
-OULAD day 30,Neural Network,region,0.49285897374327536,0.49285897374327536,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,code_module,0.47969785679754895,0.47969785679754895,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,imd_band,0.45629133585563997,0.45629133585563997,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,code_presentation,0.32164597284014795,0.32164597284014795,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,highest_education,0.27934963120502904,0.27934963120502904,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,gender,0.21727785328516913,0.21727785328516913,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,age_band,0.1808060902647568,0.1808060902647568,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,average_clicks_per_active_day,0.1731456505265806,0.1731456505265806,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,unique_sites,0.17132583974176419,0.17132583974176419,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,active_days,0.165561492744487,0.165561492744487,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,clicks_subpage,0.15427341497964298,0.15427341497964298,PR-AUC drop when the feature is shuffled,permutation_importance
-OULAD day 30,Neural Network,clicks_oucontent,0.1452774165618194,0.1452774165618194,PR-AUC drop when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,code_module,0.028834025879535416,0.028834025879535416,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,unique_sites,0.009634236735169922,0.009634236735169922,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,highest_education,-0.009324931200276543,0.009324931200276543,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,clicks_ouwiki,-0.009102304823875008,0.009102304823875008,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,studied_credits,0.008204626926862205,0.008204626926862205,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,imd_band,-0.007662322544750862,0.007662322544750862,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,clicks_subpage,0.005728679663907114,0.005728679663907114,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,age_band,-0.005700863121885218,0.005700863121885218,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,clicks_url,-0.005613124385488052,0.005613124385488052,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,average_clicks_per_active_day,-0.005494927301839727,0.005494927301839727,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,date_registration,0.005065087658191591,0.005065087658191591,mean AP decrease when the feature is shuffled,permutation_importance
+OULAD day 30,Neural Network,disability,0.004770585882781866,0.004770585882781866,mean AP decrease when the feature is shuffled,permutation_importance

@@ -1,5 +1,3 @@
-"""Leakage-safe preparation of the two educational datasets."""
-
 from __future__ import annotations
 
 import argparse
@@ -17,25 +15,21 @@ OULAD_ZIP_NAME = "open+university+learning+analytics+dataset.zip"
 
 
 def _clean_column_name(name: str) -> str:
-    """Convert source column labels to stable snake_case names."""
-    name = name.strip().replace("Nacionality", "Nationality")
+    name = name.strip().replace("Nacionality", "Nationality")  # typo in the UCI file
     name = re.sub(r"[^0-9A-Za-z]+", "_", name).strip("_")
     return name.lower()
 
 
 def prepare_uci(uci_zip: Path) -> tuple[pd.DataFrame, list[str], list[str]]:
-    """Build the enrolment-time UCI modelling table.
-
-    Students with the unresolved Enrolled outcome are removed. Semester-result
-    variables are deliberately excluded because they occur after enrolment.
-    """
     with zipfile.ZipFile(uci_zip) as archive:
         frame = pd.read_csv(archive.open("data.csv"), sep=";")
 
     frame.columns = [_clean_column_name(col) for col in frame.columns]
+    # still enrolled = outcome unknown, so drop those
     frame = frame.loc[frame["target"].isin(["Dropout", "Graduate"])].copy()
     frame["target_dropout"] = (frame["target"] == "Dropout").astype("int8")
 
+    # curricular_units_* are semester results — after enrolment
     leakage_columns = [col for col in frame if col.startswith("curricular_units_")]
     frame = frame.drop(columns=["target", *leakage_columns])
 
@@ -62,7 +56,7 @@ def prepare_uci(uci_zip: Path) -> tuple[pd.DataFrame, list[str], list[str]]:
         "application_order",
         "previous_qualification_grade",
         "admission_grade",
-        "age_at_enrollment",
+        "age_at_enrollment",  # that's the name in the UCI file
         "unemployment_rate",
         "inflation_rate",
         "gdp",
@@ -86,7 +80,7 @@ def _aggregate_oulad_vle(
     end_day: int = 30,
     chunksize: int = 750_000,
 ) -> pd.DataFrame:
-    """Aggregate day-window VLE activity without loading all 10.6M rows at once."""
+    # studentVle is huge (~10m rows), so read it in chunks
     parts: list[pd.DataFrame] = []
     usecols = [*KEYS, "id_site", "date", "sum_click"]
 
@@ -134,14 +128,12 @@ def _aggregate_oulad_vle(
     combined = pd.concat(parts, ignore_index=True).fillna(0)
     value_columns = [column for column in combined.columns if column not in KEYS]
 
-    # A student can occur in several chunks. Sum count-like features across
-    # chunks, but reconstruct active-day and unique-site counts exactly below.
+    # same student can show up in more than one chunk
     summed = combined.groupby(KEYS, as_index=False)[
         [c for c in value_columns if c not in {"active_days", "unique_sites"}]
     ].sum()
 
-    # Exact distinct counts are calculated in a second chunked pass using sets.
-    # The selected 31-day window is compact, so these sets remain manageable.
+    # nunique across chunks isn't additive, so redo those with sets
     day_sets: dict[tuple, set] = {}
     site_sets: dict[tuple, set] = {}
     for chunk in pd.read_csv(
@@ -174,7 +166,6 @@ def prepare_oulad(
     start_day: int = 0,
     end_day: int = 30,
 ) -> tuple[pd.DataFrame, list[str], list[str]]:
-    """Build the day-30 OULAD modelling table."""
     with zipfile.ZipFile(oulad_zip) as archive:
         info = pd.read_csv(archive.open("studentInfo.csv"), na_values="?")
         registration = pd.read_csv(
@@ -187,8 +178,8 @@ def prepare_oulad(
 
     cohort = info.merge(registration, on=KEYS, how="inner", validate="one_to_one")
 
-    # At the prediction point, the student must already be registered and must
-    # not already have withdrawn. This prevents temporal target leakage.
+    # prediction point = end of day 30, so they have to be registered by then
+    # and not already withdrawn
     cohort = cohort.loc[
         cohort["date_registration"].notna()
         & (cohort["date_registration"] <= end_day)
@@ -244,7 +235,6 @@ def prepare_oulad(
 def build_processed_tables(
     uci_zip: Path, oulad_zip: Path, output_dir: Path
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Prepare and save both modelling tables."""
     output_dir.mkdir(parents=True, exist_ok=True)
     uci, _, _ = prepare_uci(uci_zip)
     oulad, _, _ = prepare_oulad(oulad_zip)
@@ -254,7 +244,7 @@ def build_processed_tables(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description="Build the UCI and OULAD modelling tables.")
     parser.add_argument("--uci-zip", type=Path, required=True)
     parser.add_argument("--oulad-zip", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, default=Path("data/processed"))
@@ -273,4 +263,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

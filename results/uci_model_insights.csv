@@ -11,15 +11,15 @@ UCI enrolment,Logistic Regression,nationality_26,-1.038199200630502,1.0381992006
 UCI enrolment,Logistic Regression,application_mode_39,1.033508702450245,1.033508702450245,associated with higher risk,logistic_coefficient
 UCI enrolment,Logistic Regression,nationality_109,1.0059483546133088,1.0059483546133088,associated with higher risk,logistic_coefficient
 UCI enrolment,Logistic Regression,course_9500,-0.9932657435704741,0.9932657435704741,associated with lower risk,logistic_coefficient
-UCI enrolment,Neural Network,course,0.12745499019921436,0.12745499019921436,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,tuition_fees_up_to_date,0.11889044738769025,0.11889044738769025,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,mother_s_occupation,0.07598431337659417,0.07598431337659417,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,application_mode,0.07506982539821375,0.07506982539821375,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,father_s_occupation,0.061085662193550966,0.061085662193550966,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,mother_s_qualification,0.05745265957255606,0.05745265957255606,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,father_s_qualification,0.05129461863230786,0.05129461863230786,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,scholarship_holder,0.03305632022123044,0.03305632022123044,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,previous_qualification,0.03215102613474807,0.03215102613474807,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,gender,0.01922212745776644,0.01922212745776644,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,marital_status,0.015278588887384578,0.015278588887384578,PR-AUC drop when the feature is shuffled,permutation_importance
-UCI enrolment,Neural Network,nationality,0.013862691086669043,0.013862691086669043,PR-AUC drop when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,tuition_fees_up_to_date,0.12630482626693967,0.12630482626693967,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,course,0.04239642135926741,0.04239642135926741,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,scholarship_holder,0.022142953697830633,0.022142953697830633,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,application_mode,0.01291747594034448,0.01291747594034448,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,mother_s_occupation,-0.012630035457049812,0.012630035457049812,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,debtor,0.012089031386359167,0.012089031386359167,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,previous_qualification,0.011336244317650512,0.011336244317650512,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,mother_s_qualification,-0.008393329131982444,0.008393329131982444,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,father_s_occupation,-0.0067253713761038225,0.0067253713761038225,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,admission_grade,0.005377637357461398,0.005377637357461398,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,age_at_enrollment,0.005136147490461804,0.005136147490461804,mean AP decrease when the feature is shuffled,permutation_importance
+UCI enrolment,Neural Network,unemployment_rate,0.004820826009178325,0.004820826009178325,mean AP decrease when the feature is shuffled,permutation_importance

@@ -1,5 +1,3 @@
-"""Reusable baseline modelling and evaluation functions."""
-
 from __future__ import annotations
 
 from pathlib import Path
@@ -29,7 +27,6 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 def make_preprocessor(
     categorical_columns: list[str], numeric_columns: list[str]
 ) -> ColumnTransformer:
-    """Impute and encode categoricals; impute and standardise numerics."""
     categorical = Pipeline(
         steps=[
             ("impute", SimpleImputer(strategy="most_frequent")),
@@ -52,10 +49,9 @@ def make_preprocessor(
 
 
 class BalancedMLPClassifier(MLPClassifier):
-    """Small neural net. sklearn MLP has no class_weight; oversample the minority class."""
-
+    # MLP has no class_weight, so just oversample the minority class
     def fit(self, X, y, sample_weight=None):
-        # Do not pass sample_weight: older sklearn MLP.fit() rejects it.
+        # don't pass sample_weight — older sklearn MLP rejects it
         X_arr = np.asarray(X)
         y_arr = np.asarray(y).ravel()
         classes, counts = np.unique(y_arr, return_counts=True)
@@ -78,12 +74,6 @@ class BalancedMLPClassifier(MLPClassifier):
 def make_models(
     categorical_columns: list[str], numeric_columns: list[str]
 ) -> dict[str, Pipeline]:
-    """Return two baseline pipelines with the same ColumnTransformer.
-
-    Logistic Regression is the linear, interpretable baseline. The second model is
-    a small neural network so at least one algorithm differs from typical
-    Practical Data Science tree / kNN work.
-    """
     shared_preprocess = make_preprocessor(categorical_columns, numeric_columns)
     return {
         "Logistic Regression": Pipeline(
@@ -103,7 +93,7 @@ def make_models(
                     "preprocess",
                     make_preprocessor(categorical_columns, numeric_columns),
                 ),
-                # One-hot columns are 0/1; scale them too because MLP is scale-sensitive.
+                # MLP cares about scale, even for 0/1 dummies
                 ("scale_all", StandardScaler(with_mean=False)),
                 (
                     "model",
@@ -129,7 +119,6 @@ def metrics_at_threshold(
     probabilities: np.ndarray,
     threshold: float = 0.5,
 ) -> dict[str, float]:
-    """Compute classification metrics at a fixed probability threshold."""
     predictions = (probabilities >= threshold).astype(int)
     return {
         "threshold": float(threshold),
@@ -137,6 +126,7 @@ def metrics_at_threshold(
         "precision": precision_score(y_true, predictions, zero_division=0),
         "recall": recall_score(y_true, predictions, zero_division=0),
         "f1": f1_score(y_true, predictions, zero_division=0),
+        # this is AP, not trapezoidal PR-AUC
         "pr_auc_average_precision": average_precision_score(y_true, probabilities),
         "roc_auc": roc_auc_score(y_true, probabilities),
     }
@@ -150,11 +140,6 @@ def evaluate_models(
     y_test: pd.Series,
     thresholds: dict[str, float] | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Pipeline], dict[str, list[list[int]]]]:
-    """Fit models and evaluate them on the test set.
-
-    Thresholds are optional. When omitted, every model uses 0.5. Ranking metrics
-    (PR-AUC, ROC-AUC) do not depend on the threshold.
-    """
     thresholds = thresholds or {}
     rows = []
     fitted = {}
@@ -178,7 +163,6 @@ def threshold_scan(
     probabilities: np.ndarray,
     thresholds: np.ndarray | None = None,
 ) -> pd.DataFrame:
-    """Evaluate precision, recall, and F1 across candidate thresholds."""
     if thresholds is None:
         thresholds = np.linspace(0.05, 0.95, 37)
     rows = [
@@ -193,14 +177,12 @@ def tune_threshold_for_f1(
     probabilities: np.ndarray,
     thresholds: np.ndarray | None = None,
 ) -> tuple[float, pd.DataFrame]:
-    """Select the threshold that maximises F1 on a validation set only."""
     scan = threshold_scan(y_true, probabilities, thresholds=thresholds)
     best_row = scan.loc[scan["f1"].idxmax()]
     return float(best_row["threshold"]), scan
 
 
 def get_feature_names(pipeline: Pipeline) -> np.ndarray:
-    """Return transformed feature names from a fitted preprocessing pipeline."""
     return pipeline.named_steps["preprocess"].get_feature_names_out()
 
 
@@ -210,11 +192,8 @@ def extract_model_insights(
     x: pd.DataFrame | None = None,
     y: pd.Series | np.ndarray | None = None,
 ) -> pd.DataFrame:
-    """Return the strongest model contributions.
-
-    Logistic Regression: signed coefficients (positive = higher predicted risk).
-    Neural Network: permutation importance on original columns (PR-AUC drop).
-    """
+    # LR: coefficients. NN: permutation importance on the data you pass in
+    # (use the test set, not train)
     model = pipeline.named_steps["model"]
 
     if hasattr(model, "coef_"):
@@ -244,7 +223,7 @@ def extract_model_insights(
         x_used = x
         y_used = y
         if len(x_used) > 2_500:
-            x_used = x_used.sample(n=2_500, random_state=42)
+            x_used = x_used.sample(n=2_500, random_state=42)  # otherwise this is slow
             y_used = y_used.loc[x_used.index]
         result = permutation_importance(
             pipeline,
@@ -260,7 +239,7 @@ def extract_model_insights(
                 "feature": list(x_used.columns),
                 "value": result.importances_mean,
                 "abs_value": np.abs(result.importances_mean),
-                "interpretation": "PR-AUC drop when the feature is shuffled",
+                "interpretation": "mean AP decrease when the feature is shuffled",
                 "source": "permutation_importance",
             }
         )
@@ -274,8 +253,10 @@ def plot_top_features(
     output_path: Path,
     show: bool = False,
 ) -> None:
-    """Save a horizontal bar chart of the strongest model contributions."""
-    plot_frame = insights.sort_values("abs_value", ascending=True)
+    plot_frame = insights.sort_values("abs_value", ascending=True).copy()
+    plot_frame["feature"] = plot_frame["feature"].str.replace(
+        "enrollment", "enrolment", regex=False
+    )
     fig, ax = plt.subplots(figsize=(8, 6))
     colors = (
         ["#c0392b" if value >= 0 else "#1f6f8b" for value in plot_frame["value"]]
@@ -286,7 +267,7 @@ def plot_top_features(
     ax.set_xlabel(
         "Coefficient (standardised / one-hot space)"
         if insights["source"].iloc[0] == "logistic_coefficient"
-        else "Permutation importance (mean PR-AUC drop)"
+        else "Permutation importance (mean AP decrease)"
     )
     ax.set_ylabel("")
     ax.set_title(title)
@@ -305,7 +286,6 @@ def plot_threshold_curves(
     selected_threshold: float | None = None,
     show: bool = False,
 ) -> None:
-    """Save precision / recall / F1 against candidate thresholds."""
     fig, ax = plt.subplots(figsize=(7.5, 4.8))
     ax.plot(scan["threshold"], scan["precision"], label="Precision")
     ax.plot(scan["threshold"], scan["recall"], label="Recall")
@@ -338,7 +318,6 @@ def save_confusion_matrices(
     suffix: str = "",
     show: bool = False,
 ) -> None:
-    """Save a predicted-vs-actual heatmap for each model's confusion matrix."""
     output_dir.mkdir(parents=True, exist_ok=True)
     for model_name, matrix in matrices.items():
         fig, ax = plt.subplots(figsize=(5.5, 4.5))
