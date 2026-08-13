@@ -1,16 +1,16 @@
 dataset,model,feature,value,abs_value,interpretation,source
-UCI enrolment,Logistic Regression,course_9119,1.6490268963612438,1.6490268963612438,associated with higher risk,logistic_coefficient
-UCI enrolment,Logistic Regression,tuition_fees_up_to_date_0,1.5496492157430752,1.5496492157430752,associated with higher risk,logistic_coefficient
-UCI enrolment,Logistic Regression,mother_s_occupation_0,1.4651592736377985,1.4651592736377985,associated with higher risk,logistic_coefficient
-UCI enrolment,Logistic Regression,tuition_fees_up_to_date_1,-1.4603084750726065,1.4603084750726065,associated with lower risk,logistic_coefficient
-UCI enrolment,Logistic Regression,mother_s_occupation_191,-1.3979258537123225,1.3979258537123225,associated with lower risk,logistic_coefficient
-UCI enrolment,Logistic Regression,application_mode_7,1.2176682653101252,1.2176682653101252,associated with higher risk,logistic_coefficient
-UCI enrolment,Logistic Regression,course_9853,1.1549110330971684,1.1549110330971684,associated with higher risk,logistic_coefficient
-UCI enrolment,Logistic Regression,application_mode_15,-1.0835457627807792,1.0835457627807792,associated with lower risk,logistic_coefficient
-UCI enrolment,Logistic Regression,nationality_26,-1.038199242659488,1.038199242659488,associated with lower risk,logistic_coefficient
-UCI enrolment,Logistic Regression,application_mode_39,1.0335086710770074,1.0335086710770074,associated with higher risk,logistic_coefficient
-UCI enrolment,Logistic Regression,nationality_109,1.005948414250939,1.005948414250939,associated with higher risk,logistic_coefficient
-UCI enrolment,Logistic Regression,course_9500,-0.9932657299383729,0.9932657299383729,associated with lower risk,logistic_coefficient
+UCI enrolment,Logistic Regression,course_9119,1.6490267483087349,1.6490267483087349,associated with higher risk,logistic_coefficient
+UCI enrolment,Logistic Regression,tuition_fees_up_to_date_0,1.5496492142788898,1.5496492142788898,associated with higher risk,logistic_coefficient
+UCI enrolment,Logistic Regression,mother_s_occupation_0,1.4651592529450708,1.4651592529450708,associated with higher risk,logistic_coefficient
+UCI enrolment,Logistic Regression,tuition_fees_up_to_date_1,-1.4603084745330186,1.4603084745330186,associated with lower risk,logistic_coefficient
+UCI enrolment,Logistic Regression,mother_s_occupation_191,-1.3979258208626542,1.3979258208626542,associated with lower risk,logistic_coefficient
+UCI enrolment,Logistic Regression,application_mode_7,1.2176682440860949,1.2176682440860949,associated with higher risk,logistic_coefficient
+UCI enrolment,Logistic Regression,course_9853,1.1549109811370528,1.1549109811370528,associated with higher risk,logistic_coefficient
+UCI enrolment,Logistic Regression,application_mode_15,-1.0835457476205372,1.0835457476205372,associated with lower risk,logistic_coefficient
+UCI enrolment,Logistic Regression,nationality_26,-1.038199200630502,1.038199200630502,associated with lower risk,logistic_coefficient
+UCI enrolment,Logistic Regression,application_mode_39,1.033508702450245,1.033508702450245,associated with higher risk,logistic_coefficient
+UCI enrolment,Logistic Regression,nationality_109,1.0059483546133088,1.0059483546133088,associated with higher risk,logistic_coefficient
+UCI enrolment,Logistic Regression,course_9500,-0.9932657435704741,0.9932657435704741,associated with lower risk,logistic_coefficient
 UCI enrolment,Neural Network,course,0.12745499019921436,0.12745499019921436,PR-AUC drop when the feature is shuffled,permutation_importance
 UCI enrolment,Neural Network,tuition_fees_up_to_date,0.11889044738769025,0.11889044738769025,PR-AUC drop when the feature is shuffled,permutation_importance
 UCI enrolment,Neural Network,mother_s_occupation,0.07598431337659417,0.07598431337659417,PR-AUC drop when the feature is shuffled,permutation_importance
