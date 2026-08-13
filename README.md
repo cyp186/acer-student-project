@@ -2,7 +2,7 @@
 
 This is a proposed application relevant to an education-assessment data science role. It is not an existing ACER project.
 
-## What you need
+## Requirements to run
 
 - Python 3.10 or later
 - The two source ZIP files listed below (not stored in this repo)
@@ -20,25 +20,18 @@ Download the ZIPs and place them in `data/raw/` with these exact names:
 | `predict+students+dropout+and+academic+success.zip` | [UCI dropout and academic success](https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success) | Enrolment-time dropout |
 | `open+university+learning+analytics+dataset.zip` | [OULAD](https://analyse.kmi.open.ac.uk/open_dataset) | Later withdrawal using day-0–30 information only |
 
-The first notebook/script run builds leakage-safe tables in `data/processed/`. Later runs reuse those CSVs.
+The first notebook run builds leakage-safe tables in `data/processed/`. Later runs reuse those CSVs.
 
 ## How to run
-
-**Option A — notebook**
 
 1. Open `notebooks/01_student_risk_analysis.ipynb`.
 2. Run all cells. The kernel may start in the repo root or in `notebooks/`; the first cell resolves the project root either way.
 
-**Option B — script**
-
-From the repository root:
+If the processed CSVs are missing, put the ZIPs in `data/raw/` first. The notebook will call `build_processed_tables`. You can also build them from the repository root:
 
 ```bash
 python src/data_prep.py --uci-zip data/raw/predict+students+dropout+and+academic+success.zip --oulad-zip data/raw/open+university+learning+analytics+dataset.zip --output-dir data/processed
-python scripts/run_part13_analysis.py
 ```
-
-Skip `data_prep.py` if `data/processed/uci_enrolment_model.csv` and `data/processed/oulad_day30_model.csv` already exist.
 
 Figures are written to `figures/`. Metric and insight tables are written to `results/`.
 
@@ -48,8 +41,3 @@ Splits use `random_state=42`. UCI uses a stratified hold-out; OULAD uses a group
 
 Thresholds are chosen on validation data only (maximum F1). The test set is scored once.
 
-
-scripts/run_part13_analysis.py
-src/data_prep.py     # ZIP → modelling tables
-src/modeling.py      # models, metrics, plots
-```
