@@ -1,7 +1,5 @@
 # Early identification of higher-education withdrawal risk
 
-Code for COSC2669/COSC2816 Individual Task 1, Part 1.3. Logistic Regression and a small neural network are compared on two public datasets to flag students at risk of dropout or later withdrawal.
-
 This is a proposed application relevant to an education-assessment data science role. It is not an existing ACER project.
 
 ## What you need
@@ -26,7 +24,7 @@ The first notebook/script run builds leakage-safe tables in `data/processed/`. L
 
 ## How to run
 
-**Option A — notebook (recommended for the appendix)**
+**Option A — notebook**
 
 1. Open `notebooks/01_student_risk_analysis.ipynb`.
 2. Run all cells. The kernel may start in the repo root or in `notebooks/`; the first cell resolves the project root either way.
@@ -50,15 +48,7 @@ Splits use `random_state=42`. UCI uses a stratified hold-out; OULAD uses a group
 
 Thresholds are chosen on validation data only (maximum F1). The test set is scored once.
 
-## Project layout
 
-```
-data/raw/            # source ZIPs (you add these)
-data/processed/      # leakage-safe modelling tables
-docs/analysis_plan.md
-figures/
-notebooks/01_student_risk_analysis.ipynb
-results/
 scripts/run_part13_analysis.py
 src/data_prep.py     # ZIP → modelling tables
 src/modeling.py      # models, metrics, plots
